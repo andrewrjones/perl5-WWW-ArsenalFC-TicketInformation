@@ -45,12 +45,15 @@ sub _parse_html {
         my $fixture     = _trimWhitespace( $row->findvalue('td[2]/p[1]') );
         my $competition = _trimWhitespace( $row->findvalue('td[2]/p[2]') );
         my $datetime    = _trimWhitespace( $row->findvalue('td[2]/p[3]') );
+        my $hospitality = $row->exists(
+            'td[3]//a[@href="http://www.arsenal.com/hospitality/events"]');
 
         push @matches,
           WWW::ArsenalFC::TicketInformation::Match->new(
             competition => $competition,
             datetime    => $datetime,
             fixture     => $fixture,
+            hospitality => $hospitality,
           );
     }
 

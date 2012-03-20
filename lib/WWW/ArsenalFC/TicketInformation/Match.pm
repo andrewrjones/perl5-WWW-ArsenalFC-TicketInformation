@@ -9,6 +9,7 @@ use Object::Tiny qw{
   competition
   datetime
   fixture
+  hospitality
 };
 
 1;
@@ -26,5 +27,9 @@ The date and time of the game as it is displayed on the website (i.e. 'Saturday,
 =attr fixture
 
 The fixture (i.e. 'Arsenal vs Norwich').
+
+=attr hospitality
+
+True if hospitality is available, otherwise false.
 
 =cut
