@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 32;
+use Test::More tests => 42;
 
 use FindBin qw($Bin);
 
@@ -17,44 +17,54 @@ is( @$actual_matches, 10, '10 matches' );
 
 my @expected_matches = (
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Monday, March 12, 2012, 20:00',
         fixture     => 'Arsenal vs Newcastle United',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Wednesday, March 21, 2012, 20:00',
         fixture     => 'Everton vs Arsenal',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Saturday, March 24, 2012, 15:00',
         fixture     => 'Arsenal vs Aston Villa',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Saturday, March 31, 2012, 15:00',
         fixture     => 'QPR vs Arsenal',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Sunday, April 8, 2012, 16:00',
         fixture     => 'Arsenal vs Manchester City',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Wednesday, April 11, 2012, 19:45',
         fixture     => 'Wolverhampton W. vs Arsenal',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Monday, April 16, 2012, 20:00',
         fixture     => 'Arsenal vs Wigan Athletic',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Saturday, April 21, 2012, 12:45',
         fixture     => 'Arsenal vs Chelsea',
-        competition => 'Barclays Premier League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Women\'s Super League',
+        datetime    => 'Thursday, April 26, 2012, 19:45',
         fixture     => 'Arsenal vs Chelsea',
-        competition => 'Women\'s Super League'
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
+        competition => 'Barclays Premier League',
+        datetime    => 'Saturday, May 5, 2012, 12:45',
         fixture     => 'Arsenal vs Norwich',
-        competition => 'Barclays Premier League'
     ),
 );
 
@@ -71,6 +81,7 @@ for ( my $i = 0 ; $i < @$actual_matches ; $i++ ) {
         $expected_match->competition,
         "match $i competition"
     );
+    is( $actual_match->datetime, $expected_match->datetime, "match $i date" );
 }
 
 sub open_html {

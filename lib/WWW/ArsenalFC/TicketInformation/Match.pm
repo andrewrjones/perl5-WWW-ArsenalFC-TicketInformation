@@ -7,8 +7,24 @@ package WWW::ArsenalFC::TicketInformation::Match;
 
 use Object::Tiny qw{
   competition
-  date
+  datetime
   fixture
 };
 
 1;
+
+__END__
+
+=attr competition
+
+The competition the game is being played in (i.e. 'Barclays Premier League').
+
+=attr datetime
+
+The date and time of the game as it is displayed on the website (i.e. 'Saturday, May 5, 2012, 12:45').
+
+=attr fixture
+
+The fixture (i.e. 'Arsenal vs Norwich').
+
+=cut
