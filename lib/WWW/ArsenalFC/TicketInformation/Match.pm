@@ -12,6 +12,11 @@ use Object::Tiny qw{
   hospitality
 };
 
+sub is_home {
+    my ($self) = @_;
+    return $self->fixture =~ /^Arsenal/ ? 1 : 0;
+}
+
 1;
 
 __END__
@@ -31,5 +36,11 @@ The fixture (i.e. 'Arsenal vs Norwich').
 =attr hospitality
 
 True if hospitality is available, otherwise false.
+
+=cut
+
+=method is_home
+
+True if Arsenal are at home, otherwise false.
 
 =cut
