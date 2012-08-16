@@ -47,6 +47,7 @@ sub _parse_html {
         my $datetime    = _trimWhitespace( $row->findvalue('td[2]/p[3]') );
         my $hospitality = $row->exists(
             'td[3]//a[@href="http://www.arsenal.com/hospitality/events"]');
+        my $is_soldout = $row->exists('td[6]//span[@class="soldout"]');
 
         push @matches,
           WWW::ArsenalFC::TicketInformation::Match->new(
@@ -54,6 +55,7 @@ sub _parse_html {
             datetime    => $datetime,
             fixture     => $fixture,
             hospitality => $hospitality,
+            is_soldout  => $is_soldout,
           );
     }
 

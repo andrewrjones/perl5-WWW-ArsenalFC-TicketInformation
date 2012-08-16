@@ -10,6 +10,7 @@ use Object::Tiny qw{
   datetime
   fixture
   hospitality
+  is_soldout
 };
 
 sub is_home {
@@ -36,6 +37,12 @@ The fixture (i.e. 'Arsenal vs Norwich').
 =attr hospitality
 
 True if hospitality is available, otherwise false.
+
+=cut
+
+=attr is_soldout
+
+True if sold out, otherwise false.
 
 =cut
 
