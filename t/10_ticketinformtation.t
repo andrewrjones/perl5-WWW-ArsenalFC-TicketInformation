@@ -68,8 +68,8 @@ my @expected_matches = (
 );
 
 for ( my $i = 1 ; $i <= @$actual_matches ; $i++ ) {
-    my $expected_match = $expected_matches[$i-1];
-    my $actual_match   = $actual_matches->[$i-1];
+    my $expected_match = $expected_matches[ $i - 1 ];
+    my $actual_match   = $actual_matches->[ $i - 1 ];
 
     isa_ok( $actual_match, 'WWW::ArsenalFC::TicketInformation::Match',
         "match $i" );
