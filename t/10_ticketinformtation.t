@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 50;
+use Test::More tests => 58;
 
 use FindBin qw($Bin);
 
@@ -18,63 +18,72 @@ is( @$actual_matches, 8, '8 matches' );
 
 my @expected_matches = (
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Saturday, August 18, 2012, 15:00',
-        fixture     => 'Arsenal vs Sunderland',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Saturday, August 18, 2012, 15:00',
+        fixture      => 'Arsenal vs Sunderland',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 1,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Under-21 Premier League',
-        datetime    => 'Monday, August 20, 2012, 19:00',
-        fixture     => 'Arsenal vs Bolton',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Under-21 Premier League',
+        datetime     => 'Monday, August 20, 2012, 19:00',
+        fixture      => 'Arsenal vs Bolton',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Under-21 Premier League',
-        datetime    => 'Saturday, August 25, 2012, 14:00',
-        fixture     => 'Arsenal vs Blackburn',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Under-21 Premier League',
+        datetime     => 'Saturday, August 25, 2012, 14:00',
+        fixture      => 'Arsenal vs Blackburn',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Sunday, August 26, 2012, 13:30',
-        fixture     => 'Stoke City vs Arsenal',
-        hospitality => 0,
-        is_soldout  => 1,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Sunday, August 26, 2012, 13:30',
+        fixture      => 'Stoke City vs Arsenal',
+        hospitality  => 0,
+        is_soldout   => 1,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Sunday, September 2, 2012, 13:30',
-        fixture     => 'Liverpool vs Arsenal',
-        hospitality => 0,
-        is_soldout  => 1,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Sunday, September 2, 2012, 13:30',
+        fixture      => 'Liverpool vs Arsenal',
+        hospitality  => 0,
+        is_soldout   => 1,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Saturday, September 15, 2012, 15:00',
-        fixture     => 'Arsenal vs Southampton',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Saturday, September 15, 2012, 15:00',
+        fixture      => 'Arsenal vs Southampton',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Saturday, September 29, 2012, 12:45',
-        fixture     => 'Arsenal vs Chelsea',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Saturday, September 29, 2012, 12:45',
+        fixture      => 'Arsenal vs Chelsea',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 0,
     ),
     WWW::ArsenalFC::TicketInformation::Match->new(
-        competition => 'Barclays Premier League',
-        datetime    => 'Saturday, October 27, 2012, 15:00',
-        fixture     => 'Arsenal vs QPR',
-        hospitality => 1,
-        is_soldout  => 0,
+        competition  => 'Barclays Premier League',
+        datetime     => 'Saturday, October 27, 2012, 15:00',
+        fixture      => 'Arsenal vs QPR',
+        hospitality  => 1,
+        is_soldout   => 0,
+        can_exchange => 0,
     ),
 );
 
+# TODO: better way to compare objects
 for ( my $i = 1 ; $i <= @$actual_matches ; $i++ ) {
     my $expected_match = $expected_matches[ $i - 1 ];
     my $actual_match   = $actual_matches->[ $i - 1 ];
@@ -96,6 +105,12 @@ for ( my $i = 1 ; $i <= @$actual_matches ; $i++ ) {
     );
     is( $actual_match->is_soldout, $expected_match->is_soldout,
         "match $i is_soldout" );
+
+    is(
+        $actual_match->can_exchange,
+        $expected_match->can_exchange,
+        "match $i can_exchange"
+    );
 }
 
 sub open_html {

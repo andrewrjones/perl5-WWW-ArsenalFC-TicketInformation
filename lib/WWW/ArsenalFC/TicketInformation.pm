@@ -47,15 +47,30 @@ sub _parse_html {
         my $datetime    = _trimWhitespace( $row->findvalue('td[2]/p[3]') );
         my $hospitality = $row->exists(
             'td[3]//a[@href="http://www.arsenal.com/hospitality/events"]');
-        my $is_soldout = $row->exists('td[6]//span[@class="soldout"]');
+
+        my $is_soldout   = $row->exists('td[6]//span[@class="soldout"]');
+        my $can_exchange = 0;
+
+        if ( !$is_soldout ) {
+            my $purchase_details = $row->findvalue('td[6]/p');
+
+            #$purchase_details =~ s/=//;
+            #$purchase_details = _trimWhitespace( $purchase_details );
+            #print STDERR "=== $purchase_details \n";
+
+            if ( $purchase_details =~ /Exchange/ ) {
+                $can_exchange = 1;
+            }
+        }
 
         push @matches,
           WWW::ArsenalFC::TicketInformation::Match->new(
-            competition => $competition,
-            datetime    => $datetime,
-            fixture     => $fixture,
-            hospitality => $hospitality,
-            is_soldout  => $is_soldout,
+            can_exchange => $can_exchange,
+            competition  => $competition,
+            datetime     => $datetime,
+            fixture      => $fixture,
+            hospitality  => $hospitality,
+            is_soldout   => $is_soldout,
           );
     }
 

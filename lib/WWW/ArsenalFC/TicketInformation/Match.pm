@@ -6,6 +6,7 @@ package WWW::ArsenalFC::TicketInformation::Match;
 # ABSTRACT: Represents an Arsenal match with ticket information.
 
 use Object::Tiny qw{
+  can_exchange
   competition
   datetime
   fixture
@@ -21,6 +22,10 @@ sub is_home {
 1;
 
 __END__
+
+=attr can_exchange
+
+True if the ticket exchange is open, otherwise false.
 
 =attr competition
 
