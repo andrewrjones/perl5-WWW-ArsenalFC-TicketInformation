@@ -3,9 +3,12 @@ use warnings;
 
 package WWW::ArsenalFC::TicketInformation::Match;
 
+use WWW::ArsenalFC::TicketInformation::Match::Availability;
+
 # ABSTRACT: Represents an Arsenal match with ticket information.
 
 use Object::Tiny qw{
+  availability
   can_exchange
   competition
   datetime
@@ -22,6 +25,14 @@ sub is_home {
 1;
 
 __END__
+
+=attr availability
+
+An array of L<WWW::ArsenalFC::TicketInformation::Match::Availability> objects.
+
+The first item in the array is the current availability. Second item is the next availability, and so on.
+
+Note if the match is sold out or if the ticket exchange is open, this will not be set.
 
 =attr can_exchange
 
