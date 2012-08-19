@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3;
 use Test::Deep;
 
 use FindBin qw($Bin);
@@ -13,7 +13,7 @@ BEGIN { use_ok('WWW::ArsenalFC::TicketInformation'); }
 use aliased 'WWW::ArsenalFC::TicketInformation::Match';
 use aliased 'WWW::ArsenalFC::TicketInformation::Match::Availability';
 
-my $ticket_info = WWW::ArsenalFC::TicketInformation->new();
+my $ticket_info = new_ok('WWW::ArsenalFC::TicketInformation');
 
 my $html = open_html("$Bin/resources/buy-tickets-16-08-2012.htm");
 $ticket_info->{tree} = HTML::TreeBuilder::XPath->new_from_content($html);
