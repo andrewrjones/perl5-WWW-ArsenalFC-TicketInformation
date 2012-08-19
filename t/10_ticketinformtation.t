@@ -13,8 +13,12 @@ BEGIN { use_ok('WWW::ArsenalFC::TicketInformation'); }
 use aliased 'WWW::ArsenalFC::TicketInformation::Match';
 use aliased 'WWW::ArsenalFC::TicketInformation::Match::Availability';
 
-my $html           = open_html("$Bin/resources/buy-tickets-16-08-2012.htm");
-my $actual_matches = WWW::ArsenalFC::TicketInformation::_parse_html($html);
+my $ticket_info = WWW::ArsenalFC::TicketInformation->new();
+
+my $html = open_html("$Bin/resources/buy-tickets-16-08-2012.htm");
+$ticket_info->{tree} = HTML::TreeBuilder::XPath->new_from_content($html);
+
+my $actual_matches = $ticket_info->fetch_matches();
 
 is( @$actual_matches, 8, '8 matches' );
 

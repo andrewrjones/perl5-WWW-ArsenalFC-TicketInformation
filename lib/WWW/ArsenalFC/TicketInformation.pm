@@ -17,25 +17,23 @@ use Data::Dumper;
 # the URL on Arsenal.com
 use constant URL => 'http://www.arsenal.com/membership/buy-tickets';
 
-=method fetch()
+use Object::Tiny qw{
+  categories
+  matches
+  prices
+};
+
+=method fetch_matches()
 
 Fetches the Arsenal ticket information. Returns an array reference of L<WWW::ArsenalFC::TicketInformation::Match> objects.
 
 =cut
 
-sub fetch {
-    my $html = LWP::Simple::get(URL);
+sub fetch_matches {
+    my ($self) = @_;
 
-    return _parse_html($html);
-}
-
-# parse the HTML page and return an array ref of WWW::Arsenal::Tickets::Match
-sub _parse_html {
-    my ($html) = @_;
+    my $tree = $self->_get_tree();
     my @matches;
-
-    # generate HTML tree
-    my $tree = HTML::TreeBuilder::XPath->new_from_content($html);
 
     # get the table and loop over every 3 rows, as these
     # contain the matches
@@ -193,7 +191,20 @@ sub _parse_html {
     }
 
     # return an array ref of matches
-    return \@matches;
+    $self->{matches} = \@matches;
+    return $self->matches;
+}
+
+# populates an HTML::TreeBuilder::XPath tree, unless we already have one
+sub _get_tree {
+    my ($self) = @_;
+
+    if ( !$self->{tree} ) {
+        $self->{tree} =
+          HTML::TreeBuilder::XPath->new_from_content( LWP::Simple::get(URL) );
+    }
+
+    return $self->{tree};
 }
 
 sub _parse_availability {
@@ -221,7 +232,8 @@ sub _trimWhitespace {
 
 =head1 SYNOPSIS
 
-  my $matches = WWW::ArsenalFC::TicketInformation::fetch();
+  my $ticket_information = WWW::ArsenalFC::TicketInformation->new();
+  my $matches = $ticket_information->fetch_matches();
 
   for my $match (@$matches){
     ...
