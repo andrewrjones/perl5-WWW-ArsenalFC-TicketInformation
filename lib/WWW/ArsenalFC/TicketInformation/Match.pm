@@ -19,7 +19,12 @@ use Object::Tiny qw{
 
 sub is_home {
     my ($self) = @_;
-    return $self->fixture =~ /^Arsenal/ ? 1 : 0;
+    return $self->fixture =~ /^Arsenal/;
+}
+
+sub is_premier_league {
+    my ($self) = @_;
+    return $self->competition =~ /Premier League/;
 }
 
 1;
