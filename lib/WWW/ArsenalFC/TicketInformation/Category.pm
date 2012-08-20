@@ -29,10 +29,6 @@ The category of the match (A, B or C).
 
 The date as it appears on the website.
 
-=attr competition
-
-The competition the game is being played in (i.e. 'Barclays Premier League').
-
 =attr opposition
 
 The opposition.
