@@ -23,13 +23,23 @@ use Object::Tiny qw{
   prices
 };
 
-=method fetch_matches()
+=attr matches
 
-Fetches the Arsenal ticket information. Returns an array reference of L<WWW::ArsenalFC::TicketInformation::Match> objects.
+An array reference of L<WWW::ArsenalFC::TicketInformation::Match> objects.
+
+=method fetch()
+
+Fetches and parses the Arsenal ticket information.
 
 =cut
 
-sub fetch_matches {
+sub fetch {
+    my ($self) = @_;
+    
+    $self->_fetch_matches();
+}
+
+sub _fetch_matches {
     my ($self) = @_;
 
     my $tree = $self->_get_tree();

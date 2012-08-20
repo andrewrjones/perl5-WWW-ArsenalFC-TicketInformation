@@ -17,10 +17,11 @@ my $ticket_info = new_ok('WWW::ArsenalFC::TicketInformation');
 
 my $html = open_html("$Bin/resources/buy-tickets-16-08-2012.htm");
 $ticket_info->{tree} = HTML::TreeBuilder::XPath->new_from_content($html);
+$ticket_info->fetch();
 
 subtest 'Matches' => sub {
     plan tests => 2;
-    my $actual_matches = $ticket_info->fetch_matches();
+    my $actual_matches = $ticket_info->matches;
 
     is( @$actual_matches, 8, '8 matches' );
 
