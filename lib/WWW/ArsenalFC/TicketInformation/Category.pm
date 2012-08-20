@@ -13,8 +13,7 @@ use Object::Tiny qw{
 
 sub date {
     my ($self) = @_;
-
-    ...;
+    # TODO
 }
 
 1;
