@@ -48,19 +48,19 @@ sub _fetch_categories {
     my @categories;
 
     # get the categories table
-    my $rows =
-      $tree->findnodes('//table[@summary="Match categories"]//tr');
+    my $rows = $tree->findnodes('//table[@summary="Match categories"]//tr');
 
     for ( my $i = 1 ; $i < $rows->size() ; $i++ ) {
         my $row = $rows->[$i];
 
-        push @categories, WWW::ArsenalFC::TicketInformation::Category->new(
+        push @categories,
+          WWW::ArsenalFC::TicketInformation::Category->new(
             date_string => $row->findvalue('td[1]'),
-            opposition => $row->findvalue('td[2]'),
-            category => $row->findvalue('td[3]'),
-            );
+            opposition  => $row->findvalue('td[2]'),
+            category    => $row->findvalue('td[3]'),
+          );
     }
-    
+
     $self->{categories} = \@categories;
 }
 

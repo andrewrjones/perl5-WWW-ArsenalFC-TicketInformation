@@ -13,7 +13,8 @@ use Object::Tiny qw{
 
 sub date {
     my ($self) = @_;
-    return $self->date_string =~ /^Arsenal/ ? 1 : 0;
+
+    ...;
 }
 
 1;

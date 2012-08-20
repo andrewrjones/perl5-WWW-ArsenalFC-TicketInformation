@@ -23,60 +23,60 @@ $ticket_info->fetch();
 subtest 'Categories' => sub {
     plan tests => 1;
     my $actual = $ticket_info->categories;
-    
+
     my @expected = (
         Category->new(
-            category => 'C',
+            category    => 'C',
             date_string => 'Saturday, August 18',
-            opposition => 'Sunderland',
+            opposition  => 'Sunderland',
         ),
         Category->new(
-            category => 'C',
+            category    => 'C',
             date_string => 'Saturday September 15',
-            opposition => 'Southampton',
+            opposition  => 'Southampton',
         ),
         Category->new(
-            category => 'A',
+            category    => 'A',
             date_string => 'Saturday, September 29',
-            opposition => 'Chelsea',
+            opposition  => 'Chelsea',
         ),
         Category->new(
-            category => 'B',
+            category    => 'B',
             date_string => 'Saturday, October 27',
-            opposition => 'Queen\'s Park Rangers',
+            opposition  => 'Queen\'s Park Rangers',
         ),
         Category->new(
-            category => 'B',
+            category    => 'B',
             date_string => 'Saturday, November 10',
-            opposition => 'Fulham',
+            opposition  => 'Fulham',
         ),
         Category->new(
-            category => 'A',
+            category    => 'A',
             date_string => 'Saturday, November 17',
-            opposition => 'Tottenham Hotspur',
+            opposition  => 'Tottenham Hotspur',
         ),
         Category->new(
-            category => 'C',
+            category    => 'C',
             date_string => 'Saturday, December 1',
-            opposition => 'Swansea City',
+            opposition  => 'Swansea City',
         ),
         Category->new(
-            category => 'C',
+            category    => 'C',
             date_string => 'Saturday, December 8',
-            opposition => 'West Bromwich Albion',
+            opposition  => 'West Bromwich Albion',
         ),
         Category->new(
-            category => 'B',
+            category    => 'B',
             date_string => 'Wednesday, December 26',
-            opposition => 'West Ham United',
+            opposition  => 'West Ham United',
         ),
         Category->new(
-            category => 'B',
+            category    => 'B',
             date_string => 'Saturday, December 29',
-            opposition => 'Newcastle United',
+            opposition  => 'Newcastle United',
         ),
     );
-    
+
     cmp_deeply( $actual, \@expected );
 };
 
