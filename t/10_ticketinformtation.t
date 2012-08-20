@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 3;
+use Test::More tests => 4;
 use Test::Deep;
 
 use FindBin qw($Bin);
@@ -12,6 +12,7 @@ BEGIN { use_ok('WWW::ArsenalFC::TicketInformation'); }
 
 use aliased 'WWW::ArsenalFC::TicketInformation::Match';
 use aliased 'WWW::ArsenalFC::TicketInformation::Match::Availability';
+use aliased 'WWW::ArsenalFC::TicketInformation::Category';
 
 my $ticket_info = new_ok('WWW::ArsenalFC::TicketInformation');
 
@@ -19,13 +20,71 @@ my $html = open_html("$Bin/resources/buy-tickets-16-08-2012.htm");
 $ticket_info->{tree} = HTML::TreeBuilder::XPath->new_from_content($html);
 $ticket_info->fetch();
 
+subtest 'Categories' => sub {
+    plan tests => 1;
+    my $actual = $ticket_info->categories;
+    
+    my @expected = (
+        Category->new(
+            category => 'C',
+            date_string => 'Saturday, August 18',
+            opposition => 'Sunderland',
+        ),
+        Category->new(
+            category => 'C',
+            date_string => 'Saturday September 15',
+            opposition => 'Southampton',
+        ),
+        Category->new(
+            category => 'A',
+            date_string => 'Saturday, September 29',
+            opposition => 'Chelsea',
+        ),
+        Category->new(
+            category => 'B',
+            date_string => 'Saturday, October 27',
+            opposition => 'Queen\'s Park Rangers',
+        ),
+        Category->new(
+            category => 'B',
+            date_string => 'Saturday, November 10',
+            opposition => 'Fulham',
+        ),
+        Category->new(
+            category => 'A',
+            date_string => 'Saturday, November 17',
+            opposition => 'Tottenham Hotspur',
+        ),
+        Category->new(
+            category => 'C',
+            date_string => 'Saturday, December 1',
+            opposition => 'Swansea City',
+        ),
+        Category->new(
+            category => 'C',
+            date_string => 'Saturday, December 8',
+            opposition => 'West Bromwich Albion',
+        ),
+        Category->new(
+            category => 'B',
+            date_string => 'Wednesday, December 26',
+            opposition => 'West Ham United',
+        ),
+        Category->new(
+            category => 'B',
+            date_string => 'Saturday, December 29',
+            opposition => 'Newcastle United',
+        ),
+    );
+    
+    cmp_deeply( $actual, \@expected );
+};
+
 subtest 'Matches' => sub {
-    plan tests => 2;
-    my $actual_matches = $ticket_info->matches;
+    plan tests => 1;
+    my $actual = $ticket_info->matches;
 
-    is( @$actual_matches, 8, '8 matches' );
-
-    my @expected_matches = (
+    my @expected = (
         Match->new(
             competition  => 'Barclays Premier League',
             datetime     => 'Saturday, August 18, 2012, 15:00',
@@ -139,7 +198,7 @@ subtest 'Matches' => sub {
         ),
     );
 
-    cmp_deeply( $actual_matches, \@expected_matches );
+    cmp_deeply( $actual, \@expected );
 };
 
 sub open_html {

@@ -8,6 +8,7 @@ package WWW::ArsenalFC::TicketInformation;
 
 use WWW::ArsenalFC::TicketInformation::Match;
 use WWW::ArsenalFC::TicketInformation::Match::Availability;
+use WWW::ArsenalFC::TicketInformation::Category;
 
 use LWP::Simple              ();
 use HTML::TreeBuilder::XPath ();
@@ -35,8 +36,32 @@ Fetches and parses the Arsenal ticket information.
 
 sub fetch {
     my ($self) = @_;
-    
+
+    $self->_fetch_categories();
     $self->_fetch_matches();
+}
+
+sub _fetch_categories {
+    my ($self) = @_;
+
+    my $tree = $self->_get_tree();
+    my @categories;
+
+    # get the categories table
+    my $rows =
+      $tree->findnodes('//table[@summary="Match categories"]//tr');
+
+    for ( my $i = 1 ; $i < $rows->size() ; $i++ ) {
+        my $row = $rows->[$i];
+
+        push @categories, WWW::ArsenalFC::TicketInformation::Category->new(
+            date_string => $row->findvalue('td[1]'),
+            opposition => $row->findvalue('td[2]'),
+            category => $row->findvalue('td[3]'),
+            );
+    }
+    
+    $self->{categories} = \@categories;
 }
 
 sub _fetch_matches {
@@ -200,9 +225,7 @@ sub _fetch_matches {
         push @matches, WWW::ArsenalFC::TicketInformation::Match->new(%match);
     }
 
-    # return an array ref of matches
     $self->{matches} = \@matches;
-    return $self->matches;
 }
 
 # populates an HTML::TreeBuilder::XPath tree, unless we already have one
