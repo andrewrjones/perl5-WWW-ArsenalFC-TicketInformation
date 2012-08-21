@@ -44,6 +44,11 @@ sub datetime {
     }
 }
 
+sub date {
+    my ($self) = @_;
+    return substr( $self->datetime, 0, 10 );
+}
+
 1;
 
 __END__
@@ -99,5 +104,11 @@ True if this is a Premier League game.
 =method datetime
 
 Returns the date and time of the match as C<YYYY-MM-DDThh:mm:ss>.
+
+=cut
+
+=method date
+
+Returns the date of the match as C<YYYY-MM-DD>
 
 =cut
