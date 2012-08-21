@@ -5,6 +5,8 @@ package WWW::ArsenalFC::TicketInformation::Match;
 
 use WWW::ArsenalFC::TicketInformation::Match::Availability;
 
+use WWW::ArsenalFC::TicketInformation::Util ':all';
+
 # ABSTRACT: Represents an Arsenal match with ticket information.
 
 use Object::Tiny qw{
@@ -25,6 +27,21 @@ sub is_home {
 sub is_premier_league {
     my ($self) = @_;
     return $self->competition =~ /Premier League/;
+}
+
+sub datetime {
+    my ($self) = @_;
+
+    if ( $self->datetime_string =~ /\w+\W+(\w+)\D+(\d+)\D+(\d+)\D+(\d\d:\d\d)/ )
+    {
+        my $month = month_to_number($1);
+        my $day   = $2;
+        my $year  = $3;
+        my $time  = $4;
+
+        $day = "0$day" if $day =~ /^\d$/;
+        return sprintf( "%s-%s-%sT%s:00", $year, $month, $day, $time );
+    }
 }
 
 1;
@@ -70,5 +87,17 @@ True if sold out, otherwise false.
 =method is_home
 
 True if Arsenal are at home, otherwise false.
+
+=cut
+
+=method is_premier_league
+
+True if this is a Premier League game.
+
+=cut
+
+=method datetime
+
+Returns the date and time of the match as C<YYYY-MM-DDThh:mm:ss>.
 
 =cut
