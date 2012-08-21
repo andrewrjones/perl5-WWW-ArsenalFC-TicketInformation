@@ -81,7 +81,8 @@ sub _fetch_matches {
 
         $match{fixture}     = _trimWhitespace( $row->findvalue('td[2]/p[1]') );
         $match{competition} = _trimWhitespace( $row->findvalue('td[2]/p[2]') );
-        $match{datetime}    = _trimWhitespace( $row->findvalue('td[2]/p[3]') );
+        $match{datetime_string} =
+          _trimWhitespace( $row->findvalue('td[2]/p[3]') );
         $match{hospitality} = $row->exists(
             'td[3]//a[@href="http://www.arsenal.com/hospitality/events"]');
 

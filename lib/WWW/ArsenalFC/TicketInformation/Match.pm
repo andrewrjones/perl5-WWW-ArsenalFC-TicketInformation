@@ -11,7 +11,7 @@ use Object::Tiny qw{
   availability
   can_exchange
   competition
-  datetime
+  datetime_string
   fixture
   hospitality
   is_soldout
@@ -47,7 +47,7 @@ True if the ticket exchange is open, otherwise false.
 
 The competition the game is being played in (i.e. 'Barclays Premier League').
 
-=attr datetime
+=attr datetime_string
 
 The date and time of the game as it is displayed on the website (i.e. 'Saturday, May 5, 2012, 12:45').
 
