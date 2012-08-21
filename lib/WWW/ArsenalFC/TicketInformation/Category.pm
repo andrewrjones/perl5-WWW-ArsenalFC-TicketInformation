@@ -3,6 +3,8 @@ use warnings;
 
 package WWW::ArsenalFC::TicketInformation::Category;
 
+use WWW::ArsenalFC::TicketInformation::Util ':all';
+
 # ABSTRACT: Represents categories for upcoming Premier League fixtures.
 
 use Object::Tiny qw{
@@ -13,7 +15,14 @@ use Object::Tiny qw{
 
 sub date {
     my ($self) = @_;
-    # TODO
+
+    if ( $self->date_string =~ /\w+\W+(\w+)\D(\d+)/ ) {
+        my $year  = '2012';                # FIXME
+        my $month = month_to_number($1);
+        my $day   = $2;
+        $day = "0$day" if $day =~ /^\d$/;
+        return "$year-$month-$day";
+    }
 }
 
 1;
