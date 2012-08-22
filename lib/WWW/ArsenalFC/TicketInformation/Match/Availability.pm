@@ -13,6 +13,7 @@ use constant {
     SILVER        => 3,
     GOLD          => 4,
     PLATINUM_GOLD => 5,
+    TRAVEL_CLUB   => 6,
 
     # types
     FOR_SALE  => 1,
@@ -21,7 +22,7 @@ use constant {
 
 use Object::Tiny qw{
   date
-  membership
+  memberships
   type
 };
 
@@ -33,9 +34,9 @@ __END__
 
 The date the ticket becomes available, if scheduled for release.
 
-=attr membership
+=attr memberships
 
-The membership level this availability applies too.
+An array of membership levels this availability applies too.
 
 =attr type
 

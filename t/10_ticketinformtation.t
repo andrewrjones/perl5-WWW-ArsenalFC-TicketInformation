@@ -103,7 +103,7 @@ subtest 'Matches' => sub {
             availability    => [
                 Availability->new(
                     type       => Availability->FOR_SALE,
-                    membership => Availability->GENERAL_SALE
+                    membership => [ Availability->GENERAL_SALE ]
                 )
             ],
         ),
@@ -117,7 +117,7 @@ subtest 'Matches' => sub {
             availability    => [
                 Availability->new(
                     type       => Availability->FOR_SALE,
-                    membership => Availability->GENERAL_SALE
+                    membership => [ Availability->GENERAL_SALE ]
                 )
             ],
         ),
@@ -147,12 +147,29 @@ subtest 'Matches' => sub {
             availability    => [
                 Availability->new(
                     type       => Availability->FOR_SALE,
-                    membership => Availability->SILVER
+                    membership => [ Availability->SILVER ]
                 ),
                 Availability->new(
                     type       => Availability->SCHEDULED,
-                    membership => Availability->RED,
+                    membership => [ Availability->RED ],
                     date       => '20-08-2012'
+                )
+            ],
+        ),
+        Match->new(
+            competition     => 'Barclays Premier League',
+            datetime_string => 'Sunday, September 23, 2012, 16:00',
+            fixture         => 'Manchester City vs Arsenal',
+            hospitality     => 0,
+            is_soldout      => 0,
+            can_exchange    => 0,
+            availability    => [
+                Availability->new(
+                    type       => Availability->SCHEDULED,
+                    membership => [
+                        Availability->PLATINUM_GOLD, Availability->TRAVEL_CLUB
+                    ],
+                    date => '24-08-2012'
                 )
             ],
         ),
@@ -166,12 +183,12 @@ subtest 'Matches' => sub {
             availability    => [
                 Availability->new(
                     type       => Availability->SCHEDULED,
-                    membership => Availability->SILVER,
+                    membership => [ Availability->SILVER ],
                     date       => '23-08-2012'
                 ),
                 Availability->new(
                     type       => Availability->SCHEDULED,
-                    membership => Availability->RED,
+                    membership => [ Availability->RED ],
                     date       => '30-08-2012'
                 )
             ],
@@ -186,12 +203,12 @@ subtest 'Matches' => sub {
             availability    => [
                 Availability->new(
                     type       => Availability->SCHEDULED,
-                    membership => Availability->SILVER,
+                    membership => [ Availability->SILVER ],
                     date       => '28-08-2012'
                 ),
                 Availability->new(
                     type       => Availability->SCHEDULED,
-                    membership => Availability->RED,
+                    membership => [ Availability->RED ],
                     date       => '27-09-2012'
                 )
             ],

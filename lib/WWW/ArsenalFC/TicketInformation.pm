@@ -73,7 +73,7 @@ sub _fetch_matches {
     # get the table and loop over every 3 rows, as these
     # contain the matches
     # the second and third rows contain data on who can purchase tickets, if
-    # its not yet available to Red members or general sale
+    # its not yet sold out or on the exchange.
     my $rows = $tree->findnodes('//table[@id="member-tickets"]/tr');
     for ( my $i = 0 ; $i < $rows->size() ; $i += 3 ) {
         my %match = ();
@@ -119,6 +119,7 @@ sub _fetch_matches {
                         $availability_row->findvalue('td[2]/p') );
                 }
 
+                my @memberships_for_availability;
                 for my $membership_node (@membership_nodes) {
                     my $membership = $membership_node->attr('title');
                     given ($membership) {
@@ -127,100 +128,57 @@ sub _fetch_matches {
                             last AVAILABILITY;
                         }
                         when (/General Sale/) {
-                            $match{availability} //= [];
-
-                            if ($availability_forsale) {
-
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->GENERAL_SALE,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->FOR_SALE,
-                                  );
-                            }
-                            elsif ($availability_date) {
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->GENERAL_SALE,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->SCHEDULED,
-                                    date => $availability_date
-                                  );
-                            }
-                            last AVAILABILITY;
+                            push( @memberships_for_availability,
+                                WWW::ArsenalFC::TicketInformation::Match::Availability
+                                  ->GENERAL_SALE );
                         }
                         when (/Red Members/) {
-                            $match{availability} //= [];
-
-                            if ($availability_forsale) {
-
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->RED,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->FOR_SALE,
-                                  );
-                            }
-                            elsif ($availability_date) {
-
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->RED,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->SCHEDULED,
-                                    date => $availability_date
-                                  );
-                            }
+                            push( @memberships_for_availability,
+                                WWW::ArsenalFC::TicketInformation::Match::Availability
+                                  ->RED );
                         }
                         when (/Silver Members/) {
-                            $match{availability} //= [];
-
-                            if ($availability_forsale) {
-
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->SILVER,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->FOR_SALE,
-                                  );
-                            }
-                            elsif ($availability_date) {
-                                push @{ $match{availability} },
-                                  WWW::ArsenalFC::TicketInformation::Match::Availability
-                                  ->new(
-                                    membership =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->SILVER,
-                                    type =>
-                                      WWW::ArsenalFC::TicketInformation::Match::Availability
-                                      ->SCHEDULED,
-                                    date => $availability_date
-                                  );
-                            }
+                            push( @memberships_for_availability,
+                                WWW::ArsenalFC::TicketInformation::Match::Availability
+                                  ->SILVER );
                         }
-                    }
+                        when (/Platinum \/ Gold Members/) {
+                            push( @memberships_for_availability,
+                                WWW::ArsenalFC::TicketInformation::Match::Availability
+                                  ->PLATINUM_GOLD );
+                        }
+                        when (/Travel Club/) {
+                            push( @memberships_for_availability,
+                                WWW::ArsenalFC::TicketInformation::Match::Availability
+                                  ->TRAVEL_CLUB );
+                        }
+                    }    # given ($membership)
+                    $match{availability} //= [];
+
                 }
-            }
+                if ($availability_forsale) {
+
+                    push @{ $match{availability} },
+                      WWW::ArsenalFC::TicketInformation::Match::Availability
+                      ->new(
+                        membership => \@memberships_for_availability,
+                        type =>
+                          WWW::ArsenalFC::TicketInformation::Match::Availability
+                          ->FOR_SALE,
+                      );
+                }
+                elsif ($availability_date) {
+                    push @{ $match{availability} },
+                      WWW::ArsenalFC::TicketInformation::Match::Availability
+                      ->new(
+                        membership => \@memberships_for_availability,
+                        type =>
+                          WWW::ArsenalFC::TicketInformation::Match::Availability
+                          ->SCHEDULED,
+                        date => $availability_date
+                      );
+                }
+            }    # for my $membership_node (@membership_nodes)
         }
 
         push @matches, WWW::ArsenalFC::TicketInformation::Match->new(%match);
