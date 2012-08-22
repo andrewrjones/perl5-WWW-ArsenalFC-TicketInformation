@@ -92,6 +92,7 @@ subtest 'Matches' => sub {
             hospitality     => 1,
             is_soldout      => 0,
             can_exchange    => 1,
+            category        => 'C',
         ),
         Match->new(
             competition     => 'Barclays Under-21 Premier League',
@@ -144,6 +145,7 @@ subtest 'Matches' => sub {
             hospitality     => 1,
             is_soldout      => 0,
             can_exchange    => 0,
+            category        => 'C',
             availability    => [
                 Availability->new(
                     type       => Availability->FOR_SALE,
@@ -180,6 +182,7 @@ subtest 'Matches' => sub {
             hospitality     => 1,
             is_soldout      => 0,
             can_exchange    => 0,
+            category        => 'A',
             availability    => [
                 Availability->new(
                     type       => Availability->SCHEDULED,
@@ -200,7 +203,9 @@ subtest 'Matches' => sub {
             hospitality     => 1,
             is_soldout      => 0,
             can_exchange    => 0,
-            availability    => [
+
+#category => 'C', # stored as QPR in one table and Queens Park Rangers in the other...
+            availability => [
                 Availability->new(
                     type       => Availability->SCHEDULED,
                     membership => [ Availability->SILVER ],

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 13;
 
 BEGIN { use_ok('WWW::ArsenalFC::TicketInformation::Match'); }
 
@@ -20,8 +20,9 @@ is( $match->fixture,     'Arsenal vs Newcastle United' );
 is( $match->competition, 'Barclays Premier League' );
 ok( $match->is_home,           'Is home' );
 ok( $match->is_premier_league, 'Is Premier League' );
-is( $match->datetime, '2012-08-20T19:00:00' );
-is( $match->date,     '2012-08-20' );
+is( $match->datetime,   '2012-08-20T19:00:00' );
+is( $match->date,       '2012-08-20' );
+is( $match->opposition, 'Newcastle United' );
 
 $match = new_ok(
     'WWW::ArsenalFC::TicketInformation::Match',
@@ -33,3 +34,4 @@ $match = new_ok(
 
 ok( !$match->is_home,           'Is home' );
 ok( !$match->is_premier_league, 'Is Premier League' );
+is( $match->opposition, 'Liverpool' );

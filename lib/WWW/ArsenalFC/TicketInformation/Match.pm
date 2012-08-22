@@ -13,6 +13,7 @@ use Object::Tiny qw{
   availability
   can_exchange
   competition
+  category
   datetime_string
   fixture
   hospitality
@@ -49,6 +50,15 @@ sub date {
     return substr( $self->datetime, 0, 10 );
 }
 
+sub opposition {
+    my ($self) = @_;
+    if (   $self->fixture =~ /Arsenal vs (.*)/
+        || $self->fixture =~ /(.*) vs Arsenal/ )
+    {
+        return $1;
+    }
+}
+
 1;
 
 __END__
@@ -69,6 +79,10 @@ True if the ticket exchange is open, otherwise false.
 
 The competition the game is being played in (i.e. 'Barclays Premier League').
 
+=attr category
+
+The category of the game, if its a Permier League game.
+
 =attr datetime_string
 
 The date and time of the game as it is displayed on the website (i.e. 'Saturday, May 5, 2012, 12:45').
@@ -81,34 +95,28 @@ The fixture (i.e. 'Arsenal vs Norwich').
 
 True if hospitality is available, otherwise false.
 
-=cut
-
 =attr is_soldout
 
 True if sold out, otherwise false.
-
-=cut
 
 =method is_home
 
 True if Arsenal are at home, otherwise false.
 
-=cut
-
 =method is_premier_league
 
 True if this is a Premier League game.
-
-=cut
 
 =method datetime
 
 Returns the date and time of the match as C<YYYY-MM-DDThh:mm:ss>.
 
-=cut
-
 =method date
 
 Returns the date of the match as C<YYYY-MM-DD>
+
+=opposition
+
+Returns the opposition.
 
 =cut

@@ -50,18 +50,26 @@ sub _fetch_categories {
     # get the categories table
     my $rows = $tree->findnodes('//table[@summary="Match categories"]//tr');
 
+    my %categories_hash = ();
     for ( my $i = 1 ; $i < $rows->size() ; $i++ ) {
         my $row = $rows->[$i];
 
-        push @categories,
-          WWW::ArsenalFC::TicketInformation::Category->new(
+        my $category = WWW::ArsenalFC::TicketInformation::Category->new(
             date_string => $row->findvalue('td[1]'),
             opposition  => $row->findvalue('td[2]'),
             category    => $row->findvalue('td[3]'),
-          );
+        );
+
+        push @categories, $category;
+
+        # used to assign the category to a match later
+        my $category_key =
+          sprintf( "%s:%s", $category->opposition, $category->date );
+        $categories_hash{$category_key} = $category->category;
     }
 
-    $self->{categories} = \@categories;
+    $self->{categories}      = \@categories;
+    $self->{categories_hash} = \%categories_hash;
 }
 
 sub _fetch_matches {
@@ -181,7 +189,15 @@ sub _fetch_matches {
             }    # for my $membership_node (@membership_nodes)
         }
 
-        push @matches, WWW::ArsenalFC::TicketInformation::Match->new(%match);
+        my $match = WWW::ArsenalFC::TicketInformation::Match->new(%match);
+
+        # add the category if we can
+        my $category_key = sprintf( "%s:%s", $match->opposition, $match->date );
+        if ( my $category = $self->{categories_hash}->{$category_key} ) {
+            $match->{category} = $category;
+        }
+
+        push @matches, $match;
     }
 
     $self->{matches} = \@matches;
