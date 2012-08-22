@@ -1,6 +1,3 @@
 - basic live tests
-- additional methods in Match (i.e. opposition)
-- parse out ticket pricing and categories?
-  - each premier league match has a category, listed towards the bottom of the page
+- parse out ticket pricing
   - prices are for an area of a stadium and differ for members/non-members and categories
-  - Champions League and FA Cup fixtures will be based on A and B pricing.
