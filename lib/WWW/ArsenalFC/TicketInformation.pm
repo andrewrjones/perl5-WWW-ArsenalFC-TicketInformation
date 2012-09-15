@@ -256,6 +256,10 @@ An array reference of L<WWW::ArsenalFC::TicketInformation::Category> objects.
 
 Fetches and parses the Arsenal ticket information. Populates C<matches> and C<categories>.
 
+=head1 EXAMPLES
+
+An example of using this module to send out emails when tickets become available is available at https://gist.github.com/3728775.
+
 =head1 SEE ALSO
 
 =for :list

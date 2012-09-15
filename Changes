@@ -1,6 +1,7 @@
 {{$NEXT}}
     Fix populating the availabilities membership data.
     Remove dependency on Data::Dumper.
+    Doc updates.
 
 1.122590  2012-09-15 16:02:14 Europe/London
     Initial version.
