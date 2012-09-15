@@ -13,8 +13,6 @@ use WWW::ArsenalFC::TicketInformation::Category;
 use LWP::Simple              ();
 use HTML::TreeBuilder::XPath ();
 
-use Data::Dumper;
-
 # the URL on Arsenal.com
 use constant URL => 'http://www.arsenal.com/membership/buy-tickets';
 
