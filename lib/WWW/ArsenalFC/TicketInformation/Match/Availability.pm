@@ -44,7 +44,7 @@ The type of availibility. I.e. is it scheduled for release or for sale.
 
 Use as follows:
 
-  given ($availability) {
+  given ($availability->type) {
     when (WWW::ArsenalFC::TicketInformation::Match::Availability->SCHEDULED) {...}
     when (WWW::ArsenalFC::TicketInformation::Match::Availability->FOR_SALE) {...}
   }
