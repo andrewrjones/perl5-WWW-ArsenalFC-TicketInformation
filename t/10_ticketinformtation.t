@@ -103,8 +103,8 @@ subtest 'Matches' => sub {
             can_exchange    => 0,
             availability    => [
                 Availability->new(
-                    type       => Availability->FOR_SALE,
-                    membership => [ Availability->GENERAL_SALE ]
+                    type        => Availability->FOR_SALE,
+                    memberships => [ Availability->GENERAL_SALE ]
                 )
             ],
         ),
@@ -117,8 +117,8 @@ subtest 'Matches' => sub {
             can_exchange    => 0,
             availability    => [
                 Availability->new(
-                    type       => Availability->FOR_SALE,
-                    membership => [ Availability->GENERAL_SALE ]
+                    type        => Availability->FOR_SALE,
+                    memberships => [ Availability->GENERAL_SALE ]
                 )
             ],
         ),
@@ -148,13 +148,13 @@ subtest 'Matches' => sub {
             category        => 'C',
             availability    => [
                 Availability->new(
-                    type       => Availability->FOR_SALE,
-                    membership => [ Availability->SILVER ]
+                    type        => Availability->FOR_SALE,
+                    memberships => [ Availability->SILVER ]
                 ),
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [ Availability->RED ],
-                    date       => '20-08-2012'
+                    type        => Availability->SCHEDULED,
+                    memberships => [ Availability->RED ],
+                    date        => '20-08-2012'
                 )
             ],
         ),
@@ -167,8 +167,8 @@ subtest 'Matches' => sub {
             can_exchange    => 0,
             availability    => [
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [
+                    type        => Availability->SCHEDULED,
+                    memberships => [
                         Availability->PLATINUM_GOLD, Availability->TRAVEL_CLUB
                     ],
                     date => '24-08-2012'
@@ -185,14 +185,14 @@ subtest 'Matches' => sub {
             category        => 'A',
             availability    => [
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [ Availability->SILVER ],
-                    date       => '23-08-2012'
+                    type        => Availability->SCHEDULED,
+                    memberships => [ Availability->SILVER ],
+                    date        => '23-08-2012'
                 ),
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [ Availability->RED ],
-                    date       => '30-08-2012'
+                    type        => Availability->SCHEDULED,
+                    memberships => [ Availability->RED ],
+                    date        => '30-08-2012'
                 )
             ],
         ),
@@ -207,14 +207,14 @@ subtest 'Matches' => sub {
 #category => 'C', # stored as QPR in one table and Queens Park Rangers in the other...
             availability => [
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [ Availability->SILVER ],
-                    date       => '28-08-2012'
+                    type        => Availability->SCHEDULED,
+                    memberships => [ Availability->SILVER ],
+                    date        => '28-08-2012'
                 ),
                 Availability->new(
-                    type       => Availability->SCHEDULED,
-                    membership => [ Availability->RED ],
-                    date       => '27-09-2012'
+                    type        => Availability->SCHEDULED,
+                    memberships => [ Availability->RED ],
+                    date        => '27-09-2012'
                 )
             ],
         ),

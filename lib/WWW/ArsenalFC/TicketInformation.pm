@@ -156,7 +156,7 @@ sub _fetch_matches {
                     push @{ $match{availability} },
                       WWW::ArsenalFC::TicketInformation::Match::Availability
                       ->new(
-                        membership => \@memberships_for_availability,
+                        memberships => \@memberships_for_availability,
                         type =>
                           WWW::ArsenalFC::TicketInformation::Match::Availability
                           ->FOR_SALE,
@@ -166,7 +166,7 @@ sub _fetch_matches {
                     push @{ $match{availability} },
                       WWW::ArsenalFC::TicketInformation::Match::Availability
                       ->new(
-                        membership => \@memberships_for_availability,
+                        memberships => \@memberships_for_availability,
                         type =>
                           WWW::ArsenalFC::TicketInformation::Match::Availability
                           ->SCHEDULED,
