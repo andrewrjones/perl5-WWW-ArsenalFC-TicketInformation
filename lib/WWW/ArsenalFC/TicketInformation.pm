@@ -21,18 +21,7 @@ use constant URL => 'http://www.arsenal.com/membership/buy-tickets';
 use Object::Tiny qw{
   categories
   matches
-  prices
 };
-
-=attr matches
-
-An array reference of L<WWW::ArsenalFC::TicketInformation::Match> objects.
-
-=method fetch()
-
-Fetches and parses the Arsenal ticket information.
-
-=cut
 
 sub fetch {
     my ($self) = @_;
@@ -241,20 +230,38 @@ sub _trimWhitespace {
 =head1 SYNOPSIS
 
   my $ticket_information = WWW::ArsenalFC::TicketInformation->new();
-  my $matches = $ticket_information->fetch_matches();
+  $ticket_information->fetch();
 
-  for my $match (@$matches){
-    ...
+  for my $match (@{$ticket_info->matches}){
+    # WWW::ArsenalFC::TicketInformation::Match objects
+  }
+  
+  for my $category (@{$ticket_info->categories}){
+    # WWW::ArsenalFC::TicketInformation::Category objects
   }
 
 =head1 DESCRIPTION
 
 This is a module to get and parse the Arsenal ticket information for forthcoming matches (from http://www.arsenal.com/membership/buy-tickets).
 
+Hint: Try L<aliased> to save some typing when using this module.
+
+=attr matches
+
+An array reference of L<WWW::ArsenalFC::TicketInformation::Match> objects.
+
+=attr categories
+
+An array reference of L<WWW::ArsenalFC::TicketInformation::Category> objects.
+
+=method fetch()
+
+Fetches and parses the Arsenal ticket information. Populates C<matches> and C<categories>.
+
 =head1 SEE ALSO
 
 =for :list
   * L<WWW::ArsenalFC::TicketInformation::Match>
-  * L<WWW::ArsenalFC::TicketInformation::Match::Availability>
+  * L<WWW::ArsenalFC::TicketInformation::Category>
 
 =cut

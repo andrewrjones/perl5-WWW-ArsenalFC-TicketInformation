@@ -115,7 +115,7 @@ Returns the date and time of the match as C<YYYY-MM-DDThh:mm:ss>.
 
 Returns the date of the match as C<YYYY-MM-DD>
 
-=opposition
+=method opposition
 
 Returns the opposition.
 

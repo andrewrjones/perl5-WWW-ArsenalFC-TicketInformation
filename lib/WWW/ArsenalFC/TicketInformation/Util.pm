@@ -3,7 +3,7 @@ use warnings;
 
 package WWW::ArsenalFC::TicketInformation::Util;
 
-# ABSTRACT: Utility functions
+# ABSTRACT: Utility methods
 
 require Exporter;
 our @ISA         = qw(Exporter);
@@ -22,3 +22,9 @@ sub month_to_number {
 }
 
 1;
+
+=method month_to_number($month)
+
+Convert the month name to the month number.
+
+=cut
