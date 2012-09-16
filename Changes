@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+1.122600  2012-09-16 09:37:33 Europe/London
     Fix populating the availabilities membership data.
     Remove dependency on Data::Dumper.
     Doc updates.
