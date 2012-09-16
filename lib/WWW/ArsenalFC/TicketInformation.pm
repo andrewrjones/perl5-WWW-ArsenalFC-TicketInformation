@@ -263,7 +263,7 @@ An example of using this module to send out emails when tickets become available
 =head1 SEE ALSO
 
 =for :list
-  * L<WWW::ArsenalFC::TicketInformation::Match>
-  * L<WWW::ArsenalFC::TicketInformation::Category>
+* L<WWW::ArsenalFC::TicketInformation::Match>
+* L<WWW::ArsenalFC::TicketInformation::Category>
 
 =cut
