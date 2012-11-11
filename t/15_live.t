@@ -4,16 +4,8 @@ use strict;
 use warnings;
 
 use Net::Ping 2.33;
-use Test::More;
-
-my $p = Net::Ping->new( "syn", 2 );
-$p->port_number( getservbyname( "http", "tcp" ) );
-unless ( $p->ping('arsenal.com') ) {
-    plan skip_all => 'Can\'t find arsenal.com for live tests';
-}
-else {
-    plan tests => 2;
-}
+use Test::More tests => 2;
+use HTTP::Online ':skip_all';
 
 use aliased 'WWW::ArsenalFC::TicketInformation';
 use aliased 'WWW::ArsenalFC::TicketInformation::Category';
